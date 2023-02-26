@@ -39,11 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd Party
-    "crispy_forms",  # new
-    "crispy_bootstrap5",  # new
+    "crispy_forms",
+    "crispy_bootstrap5",
     # Local
-    "accounts",  # new
-    "pages",  # new
+    "accounts",  
+    "pages",  
+    "articles", # new
 ]
 
 MIDDLEWARE = [
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Cairo'   # edit
 
 USE_I18N = True
 
@@ -139,13 +140,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"  
 
 # Email Confegrations
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
-# DEFAULT_FROM_EMAIL = "oterabuv@multiscanner.org"
-# EMAIL_HOST = "smtp.sendgrid.net"
-# EMAIL_HOST_USER = "apikey"
-# EMAIL_HOST_PASSWORD = "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"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
 
 EMAIL_USE_TLS = True # Use TLS encryption
 EMAIL_HOST = 'smtp.gmail.com' # Gmail SMTP server
