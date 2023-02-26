@@ -1,29 +1,42 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin # new
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 from .models import Article
 
 # Create your views here.
-class ArticleListView(ListView):
+class ArticleListView(LoginRequiredMixin, ListView):  # new
     model = Article
     template_name = 'article_list.html'
     context_object_name = 'all_articles_list'
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(LoginRequiredMixin, DetailView):  # new
     model = Article
     template_name = 'article_detail.html'
 
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):  # new
     model = Article
     fields = ('title', 'body', )
     template_name = 'article_edit.html'
 
-class ArticleDeleteView(DeleteView):
+    def test_func(self):
+        object = self.get_object()
+        return object.author == self.request.user or self.request.user.is_superuser #Allow superuser to update article.
+
+class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):  # new
     model = Article
     template_name = 'article_delete.html'
     success_url = reverse_lazy('article_list')
 
-class ArticleCreateView(CreateView):
+    def test_func(self):  # new
+        object = self.get_object()
+        return object.author == self.request.user or self.request.user.is_superuser #Allow superuser to delete article.
+
+class ArticleCreateView(LoginRequiredMixin, CreateView): # new
     model = Article
     template_name = 'article_new.html'
-    fields = ('title', 'body', 'author', )
+    fields = ('title', 'body', )
+
+    def form_valid(self, form):  # new
+        form.instance.author = self.request.user
+        return super().form_valid(form)
