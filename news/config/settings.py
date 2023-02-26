@@ -34,9 +34,9 @@ INSTALLED_APPS = [
     "crispy_forms",  # new
     "crispy_bootstrap5",  # new
     # Local
-    "accounts.apps.AccountsConfig",  # new
-    "pages.apps.PagesConfig",  # new
-    "articles.apps.ArticlesConfig",  # new
+    "accounts",  # new
+    "pages",  # new
+    "articles",  # new
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "django_project.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "django_project.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
