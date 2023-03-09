@@ -37,15 +37,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",  # new
     # Third-party
-    "crispy_forms",  # new
-    "crispy_bootstrap5",  # new
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "allauth",  # new
+    "allauth.account",  # new
     # Local
     "accounts",
     "pages",
 ]
 
-AUTH_USER_MODEL = "accounts.CustomUser"  # new
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -62,7 +65,7 @@ ROOT_URLCONF = "django_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],  # new
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -128,9 +131,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]  # new
-STATIC_ROOT = BASE_DIR / "staticfiles"  # new
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"  # new
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -138,10 +141,23 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"  #
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# REDIRECTs
-LOGIN_REDIRECT_URL = "home"  # new
-LOGOUT_REDIRECT_URL = "home"  # new
-
 # django-crispy-forms
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  # new
-CRISPY_TEMPLATE_PACK = "bootstrap5"  # new
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+#### django-allauth config
+LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_REDIRECT = "home"  # new
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",  # new
+)
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # new
+ACCOUNT_SESSION_REMEMBER = True  # new
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False  # new
+# email only login
+ACCOUNT_USERNAME_REQUIRED = False  # new
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # new
+ACCOUNT_EMAIL_REQUIRED = True  # new
+ACCOUNT_UNIQUE_EMAIL = True  # new
