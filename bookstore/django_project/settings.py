@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from environs import Env  # new
+from environs import Env
 
-env = Env()  # new
-env.read_env()  # new
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG")  # new
+DEBUG = env.bool("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]  # new
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # Local
     "accounts",
     "pages",
-    "books",  # new
+    "books",
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -85,6 +85,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "django_project.wsgi.application"
 
+
+# images
+MEDIA_URL = "/media/"  # new
+MEDIA_ROOT = BASE_DIR / "media"  # new
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -143,7 +147,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-#### django-allauth config   # NEW
+#### django-allauth config
 LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT = "home"
 SITE_ID = 1
@@ -160,8 +164,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
 # Email Confegrations
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
-DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"  # new
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
 
 EMAIL_USE_TLS = True  # Use TLS encryption
 EMAIL_HOST = "smtp.gmail.com"  # Gmail SMTP server
