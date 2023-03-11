@@ -20,6 +20,9 @@ class BookDetailView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  
     template_name = "books/book_detail.html"
     context_object_name = "book"
     permission_required = "books.special_status"
+    queryset = Book.objects.all().prefetch_related(
+        "reviews__author",
+    )  # new
 
 
 class SearchResultsListView(ListView):  # new
