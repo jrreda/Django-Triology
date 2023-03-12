@@ -11,15 +11,8 @@ services:
     depends_on:
       - db
     environment:
-      - "DJANGO_SECRET_KEY=django-insecure-uq!mg0vs++4s($$5^c^em$$2+a+_!q)6&_)yw2!ttp+5--65wi98"
-      - "DJANGO_DEBUG=True"
+      - "DJANGO_SECRET_KEY=119zmgL2bPg4uaBt7-As-QgIIrQXll9_9vIj8lxkl9LmlGJPIb8"
       - "GMAIL_APP_PASS=ccsavrptppckcffh"
-      - "DJANGO_SECURE_SSL_REDIRECT=False" # new
-      - "DJANGO_SECURE_HSTS_SECONDS=0" # new
-      - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False" # new
-      - "DJANGO_SECURE_HSTS_PRELOAD=False" # new
-      - "DJANGO_SESSION_COOKIE_SECURE=False" # new
-      - "DJANGO_CSRF_COOKIE_SECURE=False" # new
   db:
     image: postgres:13
     volumes:

@@ -20,7 +20,8 @@ from django.urls import path, include
 
 urlpatterns = [
     # Django admin
-    path("admin/", admin.site.urls),
+    # path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path("anything-but-admin/", admin.site.urls),  # new
     # User management
     path("accounts/", include("allauth.urls")),
     # Local apps
@@ -28,7 +29,7 @@ urlpatterns = [
     path("books/", include("books.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:  # new
+if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns = [
