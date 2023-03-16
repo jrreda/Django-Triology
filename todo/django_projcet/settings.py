@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-8v!p%xcw@0+2^0i8^3qy^5@f0i-m$rpuk^q(l(9+q3i-kx)q%!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]  # new
 
 
 # Application definition
@@ -36,7 +36,11 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  # new
     "django.contrib.staticfiles",
+    # Third Party
+    "rest_framework",
+    "corsheaders",
     # Local
     "todos",
 ]
@@ -44,6 +48,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # new
+    "corsheaders.middleware.CorsMiddleware",  # new
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -117,9 +123,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]  # new
+STATIC_ROOT = BASE_DIR / "staticfiles"  # new
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"  # new
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# api configrations
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+}
+
+CORS_ALLOWED_ORIGINS = (
+    "http://localhost:3000",
+    "http://localhost:8000",
+)
+
+CSRF_TRUSTED_ORIGINS = ["localhost:3000"]
